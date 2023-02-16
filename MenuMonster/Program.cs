@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SDL2;
+using MenuMonster.Menu;
 
 namespace MenuExample
 {
@@ -36,17 +37,30 @@ namespace MenuExample
         private const int TEXT_ALIGN_CENTER = 50;
         public static IntPtr fontPointer;
         public static long then;
+        private static IntPtr backgroundTexture;
+        private static TextDrawer textDrawer;
         public static void Main(string[] args)
         {
-            SDL_ttf.TTF_Init();
 
+            InitializeApp();
+            app.Logic = Logic;
+            app.Draw = Draw;
+            then = SDL.SDL_GetTicks();
+            long nextFPS = then + 1000;
+            GameLoop();
+        }
+        public static void InitializeApp()
+        {
+            // Load the background image
+            backgroundTexture = LoadTexture("Font/Monster_.jpg", app.Renderer);
+            SDL_ttf.TTF_Init();
             fontPointer = SDL_ttf.TTF_OpenFont("Font/Lato-Regular.ttf", 24);
             if (fontPointer == IntPtr.Zero)
             {
                 Console.WriteLine("Error opening font: " + SDL.SDL_GetError());
                 return;
             }
-            // Initialisiere das Fenster und den Renderer hier
+            // Initialize the window and renderer here
             app.Window = SDL.SDL_CreateWindow("My Window",
                                       SDL.SDL_WINDOWPOS_CENTERED,
                                       SDL.SDL_WINDOWPOS_CENTERED,
@@ -66,12 +80,14 @@ namespace MenuExample
                 Console.WriteLine("Error creating renderer: " + SDL.SDL_GetError());
                 return;
             }
+            backgroundTexture = LoadTexture("Font\\Monster_.jpg", app.Renderer);
+            textDrawer = new TextDrawer(app.Renderer, fontPointer);
             InitWidgets();
             InitDemo();
-            app.Logic = Logic;
-            app.Draw = Draw;
-            then = SDL.SDL_GetTicks();
-            long nextFPS = then + 1000;
+        }
+
+        public static void GameLoop()
+        {
             while (true)
             {
                 PrepareScene();
@@ -79,7 +95,6 @@ namespace MenuExample
                 app.Logic();
                 app.Draw();
                 PresentScene();
-
                 // allow the CPU/GPU to breathe
                 SDL.SDL_Delay(1);
 
@@ -88,7 +103,7 @@ namespace MenuExample
             }
         }
 
-        private static void InitWidgets()
+            private static void InitWidgets()
         {
             widgetHead = new Widget();
             widgetTail = widgetHead;
@@ -108,8 +123,10 @@ namespace MenuExample
             return w;
         }
 
-        private static void DoWidgets()
+        private static void HandleKeyboardInput()
         {
+
+
             if (app.Keyboard == null)
             {
                 app.Keyboard = new bool[(int)SDL.SDL_Scancode.SDL_NUM_SCANCODES];
@@ -133,6 +150,23 @@ namespace MenuExample
                     app.ActiveWidget = widgetHead.Next;
                 }
             }
+
+            if (app.Keyboard[(int)SDL.SDL_Scancode.SDL_SCANCODE_F])
+            {
+                app.Keyboard[(int)SDL.SDL_Scancode.SDL_SCANCODE_F] = false;
+                int flags = (int)SDL.SDL_GetWindowFlags(app.Window);
+                if ((flags & (int)SDL.SDL_WindowFlags.SDL_WINDOW_FULLSCREEN_DESKTOP) == (int)SDL.SDL_WindowFlags.SDL_WINDOW_FULLSCREEN_DESKTOP)
+                {
+                    SDL.SDL_SetWindowFullscreen(app.Window, 0);
+                }
+                else
+                {
+                    SDL.SDL_SetWindowFullscreen(app.Window, (int)SDL.SDL_WindowFlags.SDL_WINDOW_FULLSCREEN_DESKTOP);
+                }
+            }
+        }
+        private static void HandleMenuNavigation()
+        {
             if (app.Keyboard[(int)SDL.SDL_Scancode.SDL_SCANCODE_RETURN] && app.ActiveWidget.Label == "Start")
             {
                 app.Keyboard[(int)SDL.SDL_Scancode.SDL_SCANCODE_RETURN] = false;
@@ -161,17 +195,18 @@ namespace MenuExample
                 if (app.ActiveWidget.Index == 1)
                 {
                     DrawSubMenu();
-                }else if (app.ActiveWidget.Index == 2)
+                }
+                else if (app.ActiveWidget.Index == 2)
                 {
                     ClearAndDrawSubmenu(DrawSubMenu);
                 }
             }
-
             if (app.Keyboard[(int)SDL.SDL_Scancode.SDL_SCANCODE_RETURN] && app.ActiveWidget.Label == "Exit")
             {
                 Environment.Exit(0);
             }
         }
+
 
         private static void DrawWidgets()
         {
@@ -180,11 +215,11 @@ namespace MenuExample
             {
                 if (w == app.ActiveWidget)
                 {
-                    DrawText(">" + "  " + w.Label, w.X - 40, w.Y, 0, 255, 0, 500, 10);
+                    textDrawer.DrawText(">" + "  " + w.Label, w.X - 40, w.Y, 0, 255, 0, 500, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER);
                 }
                 else
                 {
-                    DrawText(w.Label, w.X, w.Y, 255, 255, 255, 500, 10);
+                    textDrawer.DrawText(w.Label, w.X, w.Y, 255, 255, 255, 500, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER);
                 }
 
                 w = w.Next;
@@ -278,24 +313,49 @@ namespace MenuExample
                 w = next;
             }
             InitWidgets();
-            //drawSubmenu();
+            drawSubmenu();
         }
         private static void Logic()
         {
-            DoWidgets();
+            HandleKeyboardInput();
+            HandleMenuNavigation();
         }
 
         private static void Draw()
         {
+            SDL.SDL_RenderCopy(app.Renderer, backgroundTexture, IntPtr.Zero, IntPtr.Zero);
             DrawWidgets();
+            
         }
 
         private static void PrepareScene()
         {
+            
             SDL.SDL_SetRenderDrawColor(app.Renderer, 0, 0, 0, 255);
             SDL.SDL_RenderClear(app.Renderer);
-        }
+            
+            // Render the background image
+            SDL.SDL_RenderCopy(app.Renderer, backgroundTexture, IntPtr.Zero, IntPtr.Zero);
 
+        }
+        private static IntPtr LoadTexture(string file, IntPtr renderer)
+        {
+            IntPtr texture = IntPtr.Zero;
+            IntPtr surface = SDL_image.IMG_Load(file);
+            if (surface == IntPtr.Zero)
+            {
+                Console.WriteLine("Error loading image file: " + SDL.SDL_GetError());
+                return IntPtr.Zero;
+            }
+            texture = SDL.SDL_CreateTextureFromSurface(renderer, surface);
+            if (texture == IntPtr.Zero)
+            {
+                Console.WriteLine("Error creating texture: " + SDL.SDL_GetError());
+            }
+            SDL.SDL_SetTextureBlendMode(texture, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
+            SDL.SDL_FreeSurface(surface);
+            return texture;
+        }
         private static void DoInput()
         {
             SDL.SDL_Event e;
@@ -327,60 +387,8 @@ namespace MenuExample
             then = then == 0 ? now : then;
             app.DeltaTime = (now - then) / 1000.0;
             app.FPS = (int)(1.0 / app.DeltaTime);
-            //Console.WriteLine("FPS: " + app.FPS);
+            Console.WriteLine("FPS: " + app.FPS);
             then = now;
-        }
-
-        private static void DrawText(string text, int x, int y, int r, int g, int b, int align, int font)
-        {
-
-
-
-
-            // create a surface from the text
-            SDL.SDL_Color color = new SDL.SDL_Color() { r = (byte)r, g = (byte)g, b = (byte)b };
-            IntPtr textSurface = SDL_ttf.TTF_RenderText_Blended(fontPointer, text, color);
-            if (textSurface == IntPtr.Zero)
-            {
-                Console.WriteLine("Error creating text surface: " + SDL.SDL_GetError());
-                return;
-            }
-
-            // create a texture from the surface
-            IntPtr textTexture = SDL.SDL_CreateTextureFromSurface(app.Renderer, textSurface);
-            if (textTexture == IntPtr.Zero)
-            {
-                Console.WriteLine("Error creating texture: " + SDL.SDL_GetError());
-                return;
-            }
-
-            // get the width and height of the text
-            int w, h;
-            SDL.SDL_QueryTexture(textTexture, out uint format, out int access, out w, out h);
-            // calculate the position based on the text alignment
-            SDL.SDL_Rect textRect = new SDL.SDL_Rect();
-            if (align == TEXT_ALIGN_RIGHT)
-            {
-                textRect.x = x - w;
-            }
-            else if (align == TEXT_ALIGN_CENTER)
-            {
-                textRect.x = x - w / 2;
-            }
-            else
-            {
-                textRect.x = x;
-            }
-            textRect.y = y;
-            textRect.w = w;
-            textRect.h = h;
-
-            // render the text to the screen
-            SDL.SDL_RenderCopy(app.Renderer, textTexture, IntPtr.Zero, ref textRect);
-
-            // free the surface and texture
-            SDL.SDL_FreeSurface(textSurface);
-            SDL.SDL_DestroyTexture(textTexture);
         }
     }
 }

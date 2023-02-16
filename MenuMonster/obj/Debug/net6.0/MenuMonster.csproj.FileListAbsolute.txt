@@ -69,3 +69,4 @@ D:\Muaaz\Studim\Semester 3\c#\Github\MenuMonster\MenuMonster\obj\Debug\net6.0\Me
 D:\Muaaz\Studim\Semester 3\c#\Github\MenuMonster\MenuMonster\obj\Debug\net6.0\MenuMonster.genruntimeconfig.cache
 D:\Muaaz\Studim\Semester 3\c#\Github\MenuMonster\MenuMonster\obj\Debug\net6.0\ref\MenuMonster.dll
 D:\Muaaz\Studim\Semester 3\c#\Github\MenuMonster\MenuMonster\bin\Debug\net6.0\System.Windows.Forms.Ribbon35.dll
+D:\Muaaz\Studim\Semester 3\c#\Github\MenuMonster\MenuMonster\bin\Debug\net6.0\Font\Monster_.jpg
