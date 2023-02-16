@@ -1,0 +1,158 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "Sayers.SDL2.Core/1.0.11": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Sayers.SDL2.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/Sayers.SDL2.Core.dll": {}
+        },
+        "build": {
+          "build/Sayers.SDL2.Core.targets": {}
+        }
+      },
+      "System.Windows.Forms.Ribbon35/3.5.8": {
+        "type": "package",
+        "compile": {
+          "lib/net35/System.Windows.Forms.Ribbon35.dll": {}
+        },
+        "runtime": {
+          "lib/net35/System.Windows.Forms.Ribbon35.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Sayers.SDL2.Core/1.0.11": {
+      "sha512": "K/guGaUyRdMhL2FLlUYbqJmKF3h2KtOV7l90NJfLOt/M64zLb4fkWlDGjXCZdHSZGPKsyOjps6FdsambXiLJQQ==",
+      "type": "package",
+      "path": "sayers.sdl2.core/1.0.11",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/Sayers.SDL2.Core.targets",
+        "build/win_x64/SDL2.dll",
+        "build/win_x64/SDL2_image.dll",
+        "build/win_x64/SDL2_mixer.dll",
+        "build/win_x64/SDL2_ttf.dll",
+        "build/win_x64/libFLAC-8.dll",
+        "build/win_x64/libjpeg-9.dll",
+        "build/win_x64/libmodplug-1.dll",
+        "build/win_x64/libmpg123-0.dll",
+        "build/win_x64/libogg-0.dll",
+        "build/win_x64/libopus-0.dll",
+        "build/win_x64/libopusfile-0.dll",
+        "build/win_x64/libpng16-16.dll",
+        "build/win_x64/libtiff-5.dll",
+        "build/win_x64/libvorbis-0.dll",
+        "build/win_x64/libwebp-7.dll",
+        "build/win_x64/zlib1.dll",
+        "lib/net6.0/Sayers.SDL2.Core.dll",
+        "sayers.sdl2.core.1.0.11.nupkg.sha512",
+        "sayers.sdl2.core.nuspec"
+      ]
+    },
+    "System.Windows.Forms.Ribbon35/3.5.8": {
+      "sha512": "eCT9IcJyU/NDrDA7Obp40Ata7hvPTVrtKjcofJe4LC/qjx7MNpOR0vNDfc5IDEzZi5bP5wGfJpVOWnnFeL2AUQ==",
+      "type": "package",
+      "path": "system.windows.forms.ribbon35/3.5.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/Updates.txt",
+        "lib/net35/System.Windows.Forms.Ribbon35.dll",
+        "system.windows.forms.ribbon35.3.5.8.nupkg.sha512",
+        "system.windows.forms.ribbon35.nuspec"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "Sayers.SDL2.Core >= 1.0.11",
+      "System.Windows.Forms.Ribbon35 >= 3.5.8"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\mouaz\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\Muaaz\\Studim\\Semester 3\\c#\\Github\\MenuMonster\\MenuMonster\\MenuMonster.csproj",
+      "projectName": "MenuMonster",
+      "projectPath": "D:\\Muaaz\\Studim\\Semester 3\\c#\\Github\\MenuMonster\\MenuMonster\\MenuMonster.csproj",
+      "packagesPath": "C:\\Users\\mouaz\\.nuget\\packages\\",
+      "outputPath": "D:\\Muaaz\\Studim\\Semester 3\\c#\\Github\\MenuMonster\\MenuMonster\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\mouaz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "dependencies": {
+          "Sayers.SDL2.Core": {
+            "target": "Package",
+            "version": "[1.0.11, )"
+          },
+          "System.Windows.Forms.Ribbon35": {
+            "target": "Package",
+            "version": "[3.5.8, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+      }
+    }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Das Paket \"System.Windows.Forms.Ribbon35 3.5.8\" wurde nicht mit dem Projektzielframework \"net6.0\", sondern mit \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\" wiederhergestellt. Dieses Paket ist mit Ihrem Projekt möglicherweise nicht vollständig kompatibel.",
+      "libraryId": "System.Windows.Forms.Ribbon35",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "MenuMonster/1.0.0": {
+        "dependencies": {
+          "Sayers.SDL2.Core": "1.0.11",
+          "System.Windows.Forms.Ribbon35": "3.5.8"
+        },
+        "runtime": {
+          "MenuMonster.dll": {}
+        }
+      },
+      "Sayers.SDL2.Core/1.0.11": {
+        "runtime": {
+          "lib/net6.0/Sayers.SDL2.Core.dll": {
+            "assemblyVersion": "1.0.11.0",
+            "fileVersion": "1.0.11.0"
+          }
+        }
+      },
+      "System.Windows.Forms.Ribbon35/3.5.8": {
+        "runtime": {
+          "lib/net35/System.Windows.Forms.Ribbon35.dll": {
+            "assemblyVersion": "3.5.8.0",
+            "fileVersion": "3.5.8.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "MenuMonster/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Sayers.SDL2.Core/1.0.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-K/guGaUyRdMhL2FLlUYbqJmKF3h2KtOV7l90NJfLOt/M64zLb4fkWlDGjXCZdHSZGPKsyOjps6FdsambXiLJQQ==",
+      "path": "sayers.sdl2.core/1.0.11",
+      "hashPath": "sayers.sdl2.core.1.0.11.nupkg.sha512"
+    },
+    "System.Windows.Forms.Ribbon35/3.5.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-eCT9IcJyU/NDrDA7Obp40Ata7hvPTVrtKjcofJe4LC/qjx7MNpOR0vNDfc5IDEzZi5bP5wGfJpVOWnnFeL2AUQ==",
+      "path": "system.windows.forms.ribbon35/3.5.8",
+      "hashPath": "system.windows.forms.ribbon35.3.5.8.nupkg.sha512"
+    }
+  }
+}
